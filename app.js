@@ -1,3 +1,4 @@
+require('dotenv').config()
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -8,7 +9,20 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const catalogRouter = require('./routes/catalog')
 
+//const compression = require('compression')
+//const helmet = require("helmet")
+
 var app = express();
+
+//app.use(helmet())
+
+// Set up mongoose connection
+const mongoose = require("mongoose")
+const dev_db_url = process.env.MONGO_URL
+const mongoDB = dev_db_url
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true })
+const db = mongoose.connection
+db.on("error", console.error.bind(console, "MongoDB connection error:"))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
