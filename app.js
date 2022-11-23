@@ -42,6 +42,33 @@ app.engine('jade', engines.jade);
 app.engine('handlebars', engines.handlebars);
 */
 
+/*passport.use(
+  new LocalStrategy((username, password, done) => {
+    user.findOne({ username: username}, (err, user) => {
+      if (err) {
+        return done(err)
+      }
+      if (!user) {
+        return done(null, false, { message: "Incorrect username" })
+      }
+      if (user.password !== password) {
+        return done(null, false, { message: "Incorrect password" })
+      }
+      return done(null, user)
+    })
+  })
+)
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id)
+})
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user)
+  })
+})*/
+
 app.use(session({ secret: "superSecretPassword", resave: false, saveUninitialized: true }))
 app.use(passport.initialize())
 app.use(passport.session())
