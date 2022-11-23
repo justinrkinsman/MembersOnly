@@ -5,6 +5,7 @@ const router = express.Router();
 const signup = require('../controllers/signupController')
 const login = require('../controllers/loginController')
 
+
 /// SIGN UP ROUTES ///
 
 // GET sign up page
