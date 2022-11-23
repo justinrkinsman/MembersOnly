@@ -29,45 +29,15 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'pug');
 
 /*
 Add both engines and consolidate.js in your package.json
 In yourapp.js
-
 var engines = require('consolidate');
-
 app.engine('jade', engines.jade);
-
 app.engine('handlebars', engines.handlebars);
 */
-
-/*passport.use(
-  new LocalStrategy((username, password, done) => {
-    user.findOne({ username: username}, (err, user) => {
-      if (err) {
-        return done(err)
-      }
-      if (!user) {
-        return done(null, false, { message: "Incorrect username" })
-      }
-      if (user.password !== password) {
-        return done(null, false, { message: "Incorrect password" })
-      }
-      return done(null, user)
-    })
-  })
-)
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id)
-})
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user)
-  })
-})*/
 
 app.use(session({ secret: "superSecretPassword", resave: false, saveUninitialized: true }))
 app.use(passport.initialize())
@@ -86,8 +56,6 @@ app.use('/users', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-app.get('/', (req, res) => res.render('index'))
 
 // error handler
 app.use(function(err, req, res, next) {
