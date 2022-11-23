@@ -40,13 +40,13 @@ passport.deserializeUser(function(id, done) {
 /// SIGN UP ROUTES ///
 
 // GET sign up page
-router.get('/signup_form', function (req, res, next) {
-    res.render('signup_form', { title: 'Sign Up' });
+router.get('/signup', function (req, res, next) {
+    res.render('signup', { title: 'Sign Up' });
 });
 
 
 // POST sign up page
-router.post('/signup_form', [
+router.post('/signup', [
     // Validate and sanitize the fields
     body("first_name")
         .trim()
@@ -88,7 +88,7 @@ router.post('/signup_form', [
 
         if (!errors.isEmpty()) {
             // There are no errors. Render form again with sanitized values/error messages
-            res.render("signup_form", {
+            res.render("signup", {
                 title: 'Sign Up',
                 user: req.user,
                 errors: errors.array(),
@@ -104,7 +104,7 @@ router.post('/signup_form', [
 
                 if (found_username) {
                     // Username is already in use
-                    res.render("signup_form", {info: "Username already in use"})
+                    res.render("signup", {info: "Username already in use"})
                 } else {
                     user.save((err) => {
                         if (err) {
