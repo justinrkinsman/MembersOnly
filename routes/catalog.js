@@ -10,10 +10,6 @@ const app = require('../app')
 
 const async = require('async')
 
-// Require controller modules
-const signup = require('../controllers/signupController')
-const login = require('../controllers/loginController')
-
 passport.use(
     new LocalStrategy((username, password, done) => {
         User.findOne({ username: username}, (err, user) => {

@@ -29,7 +29,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 
 /*
 Add both engines and consolidate.js in your package.json
