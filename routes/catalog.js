@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require("express-validator")
 const app = require("../app")
+const bcrypt = require('bcryptjs')
 
 const User = require('../models/user')
 
@@ -48,13 +49,6 @@ router.post('/signup_form', [
         const errors = validationResult(req)
 
         // Create a Console object with escaped and trimmed data
-        const user = new User({
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            username: req.body.username,
-            password: req.body.password
-        })
-
         if (!errors.isEmpty()) {
             // There are no errors. Render form again with sanitized values/error messages
             res.render("signup_form.pug", {
@@ -75,25 +69,23 @@ router.post('/signup_form', [
                     // Username is already in use
                     res.render("signup_form.pug", {info: "Username already in use"})
                 } else {
-                    user.save((err) => {
-                        if (err) {
-                            return next(err)
-                        }
-                        // Successful - redirect to new post page.
-                        res.redirect('/')
+                    bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+                        const user = new User({
+                            first_name: req.body.first_name,
+                            last_name: req.body.last_name,
+                            username: req.body.username,
+                            password: hashedPassword
+                        }).save(err => {
+                            if (err) {
+                                return next(err)
+                            }
+                            res.redirect("/")
+                        })
                     })
                 }
             })
         }
     }
 ])
-
-
-/// LOGIN ROUTES ///
-
-// GET login page
-router.get('/login', (req, res, next) => {
-    res.render('login.pug')
-})
 
 module.exports = router;
