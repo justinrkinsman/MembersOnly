@@ -4,6 +4,8 @@ const { body, validationResult } = require("express-validator")
 
 const User = require('../models/user')
 
+const async = require('async')
+
 /// SIGN UP ROUTES ///
 
 // GET sign up page
