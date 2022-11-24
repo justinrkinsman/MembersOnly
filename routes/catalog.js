@@ -11,7 +11,7 @@ const async = require('async')
 
 // GET sign up page
 router.get('/signup_form', (req, res, next) => {
-    res.render('signup_form', { title: 'Sign Up' });
+    res.render('signup_form.pug', { title: 'Sign Up' });
 })
 
 // POST sign up page
@@ -57,7 +57,7 @@ router.post('/signup_form', [
 
         if (!errors.isEmpty()) {
             // There are no errors. Render form again with sanitized values/error messages
-            res.render("signup_form", {
+            res.render("signup_form.pug", {
                 title: 'Sign Up',
                 user: req.user,
                 errors: errors.array(),
@@ -73,7 +73,7 @@ router.post('/signup_form', [
 
                 if (found_username) {
                     // Username is already in use
-                    res.render("signup_form", {info: "Username already in use"})
+                    res.render("signup_form.pug", {info: "Username already in use"})
                 } else {
                     user.save((err) => {
                         if (err) {
@@ -93,10 +93,7 @@ router.post('/signup_form', [
 
 // GET login page
 router.get('/login', (req, res, next) => {
-    res.render('login')
+    res.render('login.pug')
 })
-
-// POST login page
-//router.post('/login', app.login_passport)
 
 module.exports = router;

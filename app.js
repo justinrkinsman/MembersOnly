@@ -79,16 +79,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get("/", (req, res) => res.render("index", { title: "DIE!!!" }))
-app.get("/success", (req, res) => res.render("success"))
+app.get("/", (req, res) => res.render("index.ejs", { title: "Please Log In", user: req.user}))
 
 app.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: '/success',
-    failureRedirect: '/login'
+    successRedirect: '/',
+    failureRedirect: '/'
   })
 )
+
+app.get("/logout", (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err)
+    }
+    res.redirect('/')
+  })
+})
 
 app.use('/', catalogRouter);
 app.use('/users', usersRouter);
@@ -106,7 +114,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error.pug');
 });
 
 module.exports = app;
