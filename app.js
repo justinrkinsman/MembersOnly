@@ -80,12 +80,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get("/", (req, res) => res.render("index", { title: "DIE!!!" }))
+app.get("/success", (req, res) => res.render("success"))
 
 app.post(
   "/login",
   passport.authenticate("local", {
     successRedirect: '/success',
-    failureRedirect: '/'
+    failureRedirect: '/login'
   })
 )
 
