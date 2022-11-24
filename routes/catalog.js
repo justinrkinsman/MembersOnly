@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require("express-validator")
+const app = require("../app")
 
 const User = require('../models/user')
 
@@ -63,7 +64,7 @@ router.post('/signup_form', [
             })
             return
         } else {
-            // Data from for is valid.
+            // Data from form is valid.
             // Check if user with same username exists
             User.findOne({ username: req.body.username }).exec((err, found_username) => {
                 if (err) {
@@ -91,9 +92,11 @@ router.post('/signup_form', [
 /// LOGIN ROUTES ///
 
 // GET login page
-//router.get('/login', login.index)
+router.get('/login', (req, res, next) => {
+    res.render('login')
+})
 
 // POST login page
-//router.post('/login', login.login_user)
+//router.post('/login', app.login_passport)
 
 module.exports = router;

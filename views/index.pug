@@ -2,4 +2,12 @@ extends layout
 
 block content
   h1= title
-  p Welcome to DIE!!!
+  p Hello, #{user}. Welcome to DIE!!!
+
+  form(method='POST' action='')
+      div.form-group 
+          label(for='username') Username: 
+          input#username.form-control(type='text', placeholder='Email' name='username')
+          label(for='password') Password: 
+          input#password.form-control(type='text', name='password')
+      button.btn.btn-primary(type='submit') Submit 

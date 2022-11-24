@@ -12,6 +12,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const catalogRouter = require('./routes/catalog')
 
+const User = require('./models/user')
+
 //const compression = require('compression')
 //const helmet = require("helmet")
 
@@ -29,6 +31,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs')
 app.set('view engine', 'pug');
 
 /*
@@ -38,6 +41,33 @@ var engines = require('consolidate');
 app.engine('jade', engines.jade);
 app.engine('handlebars', engines.handlebars);
 */
+
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    User.findOne({ username: username}, (err, user) => {
+      if (err) {
+        return done(err)
+      }
+      if (!user) {
+        return done(null, false, { message: "Incorrect username" })
+      }
+      if (user.password !== password) {
+        return done(null, false, { message: "Incorrect password" })
+      }
+      return done(null, user)
+    })
+  })
+)
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id)
+})
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user)
+  })
+})
 
 app.use(session({ secret: "superSecretPassword", resave: false, saveUninitialized: true }))
 app.use(passport.initialize())
@@ -50,6 +80,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get("/", (req, res) => res.render("index", { title: "DIE!!!" }))
+
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: '/success',
+    failureRedirect: '/'
+  })
+)
 
 app.use('/', catalogRouter);
 app.use('/users', usersRouter);
