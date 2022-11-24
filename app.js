@@ -8,7 +8,7 @@ const LocalStrategy = require('passport-local').Strategy
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bcrypt = require('bcryptjs')
-const { body, validationResult } = require('express-validator')
+const { body, validationResult, check } = require('express-validator')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -64,6 +64,7 @@ passport.use(
           // passwords do not match!
           return done(null, false, { message: "Incorrect password" })
         }
+        return done (null, user)
       })
     })
   })
@@ -130,11 +131,10 @@ app.post("/signup_form", [
       .isLength({ min: 1, max: 100})
       .escape()
       .withMessage("Password is required"),
-  body("confirm_password")
-      .trim()
-      .isLength({ min: 1, max: 100})
-      .escape()
-      .optional({ checkFalsy: true }),
+  check("confirm_password")
+      .exists()
+      .custom((value, { req }) => value === req.body.password)
+      .withMessage("Passwords must match"),
   // Process request after validation and sanitization
   (req, res, next) => {
       // Extract the validation errors form a request
