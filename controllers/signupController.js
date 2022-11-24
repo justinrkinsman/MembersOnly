@@ -1,12 +1,7 @@
-const { body, validationResult } = require("express-validator")
-const User = require('../models/user')
+
+
 
 const async = require('async')
-
-// GET sign up page
-exports.index = function (req, res, next) {
-    res.render('signup_form', { title: 'Sign Up' });
-};
 
 // Handle user create on POST
 exports.create_user_post = [
