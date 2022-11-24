@@ -39,6 +39,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 app.set('view engine', 'pug');
 
+app.use(express.static(__dirname + '/public'))
+
 /*
 Add both engines and consolidate.js in your package.json
 In yourapp.js
@@ -124,6 +126,7 @@ app.post("/signup_form", [
   body("username")
       .trim()
       .isLength({ min: 1, max: 100})
+      .toLowerCase()
       .escape()
       .withMessage("Email is required"),
   body("password")
