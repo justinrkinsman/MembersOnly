@@ -16,7 +16,7 @@ router.get('/signup_form', (req, res, next) => {
 })
 
 // POST sign up page
-router.post('/signup_form', [
+/*router.post('/signup_form', [
     // Validate and sanitize the fields
     body("first_name")
         .trim()
@@ -60,7 +60,7 @@ router.post('/signup_form', [
             // There are no errors. Render form again with sanitized values/error messages
             res.render("signup_form.pug", {
                 title: 'Sign Up',
-                user: req.body,
+                user: req.user,
                 errors: errors.array(),
             })
             return
@@ -92,6 +92,6 @@ router.post('/signup_form', [
             })
         }
     }
-])
+])*/
 
 module.exports = router;
