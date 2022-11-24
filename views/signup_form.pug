@@ -3,7 +3,7 @@ extends layout
 block content 
     h1 Sign-Up Page 
     h2 #{info}
-    form(method='POST' action='')
+    form(action='' method='POST')
         div.form-group 
             label(for='first_name') First Name: 
             input#first_name.form-control(type='text', placeholder='Bob' name='first_name')

@@ -107,6 +107,22 @@ app.get("/logout", (req, res, next) => {
   })
 })
 
+app.post("/signup_form", (req, res, next) => {
+  bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+    const user = new User({
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      username: req.body.username,
+      password: hashedPassword,
+    }).save(err => {
+      if (err) {
+        return next(err)
+      }
+      res.redirect("/")
+    })
+  })
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

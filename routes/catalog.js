@@ -48,12 +48,19 @@ router.post('/signup_form', [
         // Extract the validation errors form a request
         const errors = validationResult(req)
 
-        // Create a Console object with escaped and trimmed data
+        // Create a User object with escaped and trimmed data
+        const user = new User({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            username: req.body.username,
+            password: req.body.password,
+        })
+
         if (!errors.isEmpty()) {
             // There are no errors. Render form again with sanitized values/error messages
             res.render("signup_form.pug", {
                 title: 'Sign Up',
-                user: req.user,
+                user: req.body,
                 errors: errors.array(),
             })
             return
@@ -64,7 +71,6 @@ router.post('/signup_form', [
                 if (err) {
                     return next(err)
                 }
-
                 if (found_username) {
                     // Username is already in use
                     res.render("signup_form.pug", {info: "Username already in use"})
