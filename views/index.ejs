@@ -8,11 +8,11 @@
 <body>
   <% if (user) {%>
     <% if (user.membership === "non-member") {%>
-      <h1>WELCOME BACK <%= user.first_name %> non-member</h1>
+      <h1>WELCOME BACK <%= user.first_name %> <%= posts %></h1>
       <a href="/logout">LOG OUT</a>
     <% } %>
     <% if (user.membership === "member") {%>
-      <h1>WELCOME BACK <%= user.first_name %> you are a member</h1>
+      <h1>Welcome to the club <%= user.first_name %></h1>
       <a href="/logout">LOG OUT</a>
     <% } %>
   <% } else { %>

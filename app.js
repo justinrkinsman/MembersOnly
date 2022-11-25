@@ -15,6 +15,7 @@ var usersRouter = require('./routes/users');
 const catalogRouter = require('./routes/catalog')
 
 const User = require('./models/user')
+const Post = require('./models/post')
 
 //const compression = require('compression')
 //const helmet = require("helmet")
@@ -92,7 +93,31 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get("/", (req, res) => res.render("index.ejs", { title: "Please Log In", user: req.user}))
+post_list = function(req, res, next) {
+  Post.find({}, "title post_body formatted_timestamp user")
+    .sort({ timestamp: 1 })
+    .populate("title post_body formatted_timestamp user")
+    .exec(function (err, list_posts) {
+      if (err) {
+        return next(err)
+      }
+      // Successful, so render
+      res.render("index.ejs", { title: "Home Page", post_list: list_posts})
+    })
+}
+
+app.get("/", (req, res, next) => {
+    Post.find({}, "title post_body timestamp user")
+      .sort({ timestamp: 1 })
+      .populate("title post_body timestamp user")
+      .exec(function (err, list_posts) {
+        if (err) {
+          return next(err)
+        }
+        // Successful, so render
+        res.render("index.ejs", { title: "Please Log In", user: req.user, posts: list_posts})
+      })
+  })
 
 app.post(
   "/login",
