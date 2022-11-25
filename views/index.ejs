@@ -18,18 +18,28 @@
         <tr>
           <td><%= posts[i].post_body %></td>
         </tr>
-        <tr>
-          <td><%= posts[i].formatted_timestamp %></td>
-        </tr>
-        <tr>
-          <td><%= posts[i].user.username %></td>
-        </tr>
       <% } %>
       </table>
     <% } %>
     <% if (user.membership === "member") {%>
       <h1>Welcome to the club <%= user.first_name %></h1>
       <a href="/logout">LOG OUT</a>
+      <table>
+        <% for(let i=0; i < posts.length; i++) { %>
+          <tr>
+            <td><%= posts[i].title %></td>
+          </tr>
+          <tr>
+            <td><%= posts[i].post_body %></td>
+          </tr>
+          <tr>
+            <td><%= posts[i].formatted_timestamp %></td>
+          </tr>
+          <tr>
+            <td><%= posts[i].user.username %></td>
+          </tr>
+        <% } %>
+        </table>
     <% } %>
   <% } else { %>
     <h1>please log in</h1>
