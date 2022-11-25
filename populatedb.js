@@ -87,7 +87,7 @@ function createPosts(cb) {
     async.parallel([
         function(callback) {
             let date = new Date()
-            postCreate("Winners Don't Do Drugs", "I pity the fool who does drugs", date, users[0], callback);
+            postCreate("Winners Do All the Drugs", "I pity the fool who stays sober", date, users[0], callback);
         },
         ],
         // optional callback
