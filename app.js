@@ -108,7 +108,7 @@ post_list = function(req, res, next) {
 
 app.get("/", (req, res, next) => {
     Post.find({}, "title post_body timestamp user")
-      .sort({ timestamp: 1 })
+      .sort({ timestamp: -1 })
       .populate("title post_body timestamp user")
       .exec(function (err, list_posts) {
         if (err) {
@@ -230,27 +230,44 @@ app.post('/new-post', [
     // Extract the validation errors from a request
       const errors = validationResult(req)
 
-      // Create a Post object with escaped and trimmed data
-      const post = new Post({
-        title: req.body.title,
-        post_body: req.body.post_body,
-        timestamp: new Date(),
-        user: req.user,
+    // Find username
+      const username = User.find({username: req.user.username}).exec((err, found_username) => {
+        if (err) {
+          return next(err)
+        }
+        if (found_username) {
+          const post = new Post({
+            title: req.body.title,
+            post_body: req.body.post_body,
+            timestamp: new Date(),
+            user: found_username[0]._id,
+          }).save(err => {
+              if (err) {
+                return next(err)
+              }
+              res.redirect('/')
+          })
+        }
       })
 
       if (!errors.isEmpty()) {
+        // There are errors. Render form again with sanitized values and error messages
+        Post.find({}, "title").exec(function (err, posts) {
+          if (err) {
+            return next(err)
+          }
+        
+        // Successful, so render
         res.render("new_post.pug", {
           title: "New Post",
           user: req.user,
           errors: errors.array(),
-        }).save(err => {
-          if (err) {
-            return next(err)
-          }
-          res.redirect("/")
+          posts,
         })
-      }
-  }
+      })
+      return
+    }
+    }
 ])
 
 // catch 404 and forward to error handler
