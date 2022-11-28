@@ -10,3 +10,11 @@ a {
 input[name="username"] {
   text-transform: lowercase;
 }
+
+.form-group {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 10px;
+}

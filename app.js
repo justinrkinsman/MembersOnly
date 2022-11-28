@@ -214,6 +214,45 @@ app.post("/signup_form", [
   }
 ])
 
+app.post('/new-post', [
+  body("title")
+    .trim()
+    .isLength({ min: 1, max: 100 })
+    .escape()
+    .withMessage("Title is required"),
+  body("post_body")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Message is required"),
+  // Process request after validation and sanitization
+  (req, res, next) => {
+    // Extract the validation errors from a request
+      const errors = validationResult(req)
+
+      // Create a Post object with escaped and trimmed data
+      const post = new Post({
+        title: req.body.title,
+        post_body: req.body.post_body,
+        timestamp: new Date(),
+        user: req.user,
+      })
+
+      if (!errors.isEmpty()) {
+        res.render("new_post.pug", {
+          title: "New Post",
+          user: req.user,
+          errors: errors.array(),
+        }).save(err => {
+          if (err) {
+            return next(err)
+          }
+          res.redirect("/")
+        })
+      }
+  }
+])
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
