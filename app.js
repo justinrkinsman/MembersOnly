@@ -270,6 +270,46 @@ app.post('/new-post', [
     }
 ])
 
+/*app.post('/secret-signup', (req, res, next) => {
+  res.render('secret-signup.pug', { info: req.user._id })
+})*/
+
+app.post('/secret-signup', [
+  body("member_password")
+    .trim()
+    .escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req)
+
+    const user = new User({
+      first_name: req.user.first_name,
+      last_name: req.user.last_name,
+      username: req.user.username,
+      password: req.user.password,
+      membership: "member",
+      _id: req.user._id,
+    })
+
+    if (errors.isEmpty()) {
+        // Successful, so render
+        if (!(req.body.member_password === process.env.MEMBER_PASSWORD)) {
+          res.render("secret-signup.pug", {info:'Wrong Password'}
+        )
+        }
+        if (req.body.member_password === process.env.MEMBER_PASSWORD) {
+          User.findByIdAndUpdate(req.user._id, user, {}, function(err, theUser) {
+            if (err) {
+              return next(err)
+            }
+            res.redirect('/')
+          })
+        }
+      }
+      return
+    }
+])
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
