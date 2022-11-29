@@ -310,6 +310,43 @@ app.post('/secret-signup', [
     }
 ])
 
+app.post('/admin-signup', [
+  body("admin_password")
+    .trim()
+    .escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req)
+
+    const user = new User({
+      first_name: req.user.first_name,
+      last_name: req.user.last_name,
+      username: req.user.username,
+      password: req.user.password,
+      membership: req.user.membership,
+      admin: true,
+      _id: req.user._id,
+    })
+    
+    if (errors.isEmpty()) {
+      // Successful, so render
+      if (!(req.body.admin_password === process.env.ADMIN_PASSWORD)) {
+        res.render("admin-signup.pug", {info:'Wrong Password'}
+      )
+      }
+      if (req.body.admin_password === process.env.ADMIN_PASSWORD) {
+        User.findByIdAndUpdate(req.user._id, user, {}, function(err, theUser) {
+          if (err) {
+            return next(err)
+          }
+          res.redirect('/')
+        })
+      }
+    }
+    return
+  }
+])
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
