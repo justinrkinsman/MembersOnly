@@ -15,4 +15,8 @@ PostSchema.virtual("formatted_timestamp").get(function () {
     return DateTime.fromJSDate(this.timestamp).toLocaleString(DateTime.DATE_MED)
 })
 
+PostSchema.virtual("delete_post_url").get(function () {
+    return "/delete-post/" + this._id
+})
+
 module.exports = mongoose.model("Post", PostSchema)
