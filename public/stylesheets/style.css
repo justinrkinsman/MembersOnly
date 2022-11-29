@@ -19,3 +19,21 @@ input[name="username"] {
   gap: 20px;
   padding: 10px;
 }
+
+body {
+  background-color: grey;
+  color: wheat
+}
+
+a {
+  color: greenyellow
+}
+
+input, textarea {
+  background: whitesmoke
+}
+
+button {
+  background: skyblue;
+  border-style: none;
+}
