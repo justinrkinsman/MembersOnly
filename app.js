@@ -347,6 +347,32 @@ app.post('/admin-signup', [
   }
 ])
 
+app.get('/delete-post/:id', (req, res, next) => {
+  /*Post.findById(req.params.id)
+    .populate("title post_body timestamp user")
+    .exec(function (err, post) {
+      if (err) {
+        return next(err)
+      }
+      res.render("delete-post.ejs", {title: "Confirm Deletion", post: post})
+    })*/
+    res.render('it-works.pug')
+})
+
+app.post("/delete-post/:id", (req, res, next) => {
+  Post.findById(req.params.id)
+    .populate("title post_body timestamp user")
+    .exec(function (err, post) {
+      if (err) {
+        return next(err)
+      }
+      Post.findByIdAndRemove(req.params.id, function deletePost(err) {
+        if (err) return next(err)
+        res.redirect("/")
+      })
+    })
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

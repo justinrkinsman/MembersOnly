@@ -25,8 +25,4 @@ router.get('/admin-signup', (req, res, next) => {
     res.render('admin-signup.pug')
 })
 
-router.get('/delete-post/:id', (req, res, next) => {
-    res.render('delete-post.ejs')
-})
-
 module.exports = router;

@@ -9,3 +9,13 @@
 
 <body>
     <h1>Are you sure to want to delete this post?</h1>
+    <h3><%= post.title %> </h3>
+    <p><%= post.post_body %> </p>
+    <p><%= post.formatted_timestamp %></p>
+    <p><%= post.user.username %> </p>
+    <form method="POST" action="/delete-post/:id">
+        <input type="submit" value="Yes"></a>
+    </form>
+    <form>
+        <a href="/">No</a>
+    </form>
