@@ -28,50 +28,85 @@
           <% } %>
       </table>
       <a href="/secret-signup">join the club...</a>
-      <% } %>
-        <% if (user.membership==="member" ) {%>
-          <h1>Welcome to the club <%= user.first_name %>
-          </h1>
-          <a href="/new-post">Create post</a>
-          <a href="/logout">LOG OUT</a>
-          <table>
-            <% for(let i=0; i < posts.length; i++) { %>
-              <tr>
-                <td>
-                  <%= posts[i].title %>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <%= posts[i].post_body %>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <%= posts[i].formatted_timestamp %>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <%= posts[i].user.username %>
-                </td>
-              </tr>
-              <% } %>
-          </table>
+    <% } %>
+    <% if (user.membership==="member" && !(user.admin)) {%>
+      <h1>Welcome to the club <%= user.first_name %>
+      </h1>
+      <a href="/new-post">Create post</a>
+      <a href="/logout">LOG OUT</a>
+      <table>
+        <% for(let i=0; i < posts.length; i++) { %>
+          <tr>
+            <td>
+              <%= posts[i].title %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= posts[i].post_body %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= posts[i].formatted_timestamp %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= posts[i].user.username %>
+            </td>
+          </tr>
+        <% } %>
+      </table>
+    <% } %>
+    <% if (user.admin === true) {%>
+      <h1>Welcome to the club <%= user.first_name %>
+      </h1>
+      <a href="/new-post">Create post</a>
+      <a href="/logout">LOG OUT</a>
+        <table>
+          <% for(let i=0; i < posts.length; i++) { %>
+            <tr>
+              <td>
+                <%= posts[i].title %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= posts[i].post_body %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= posts[i].formatted_timestamp %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= posts[i].user.username %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="/">Delete Post</a>
+              </td>
+            </tr>
           <% } %>
-            <% } else { %>
-              <h1>please log in</h1>
-              <h2 class="incorrect-password"></h2>
-              <form action="/login" method="POST">
-                <label for="username">Username</label>
-                <input name="username" placeholder="username" type="text" />
-                <label for="password">Password</label>
-                <input name="password" type="password" />
-                <button>Log In</button>
-              </form>
-              <h2>Not signed up:</h2>
-              <a href="/signup_form">Sign up here:</a>
-              <%}%>
+        </table>
+    <% } %>
+    <% } else { %>
+      <h1>please log in</h1>
+      <h2 class="incorrect-password"></h2>
+        <form action="/login" method="POST">
+          <label for="username">Username</label>
+          <input name="username" placeholder="username" type="text" />
+          <label for="password">Password</label>
+          <input name="password" type="password" />
+          <button>Log In</button>
+        </form>
+      <h2>Not signed up:</h2>
+      <a href="/signup_form">Sign up here:</a>
+    <%}%>
 </body>
 
 </html>
