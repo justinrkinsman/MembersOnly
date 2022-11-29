@@ -13,7 +13,7 @@
     <p><%= post.post_body %> </p>
     <p><%= post.formatted_timestamp %></p>
     <p><%= post.user.username %> </p>
-    <form method="POST" action="/delete-post/:id">
+    <form method="POST" action="<%= post.delete_post_url %>">
         <input type="submit" value="Yes"></a>
     </form>
     <form>
