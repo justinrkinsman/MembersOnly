@@ -12,7 +12,7 @@ const PostSchema = new Schema({
 
 // Formatted timestamp
 PostSchema.virtual("formatted_timestamp").get(function () {
-    return DateTime.fromJSDate(this.timestamp).toLocaleString(DateTime.DATE_MED)
+    return DateTime.fromJSDate(this.timestamp).toFormat("MMMM d yyyy', ' h:mm a")
 })
 
 PostSchema.virtual("delete_post_url").get(function () {
