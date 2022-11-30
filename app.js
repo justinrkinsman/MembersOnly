@@ -228,11 +228,13 @@ app.post('/new-post', [
     .trim()
     .isLength({ min: 1, max: 100 })
     .escape()
+    .unescape("'", "&quot", '/')
     .withMessage("Title is required"),
   body("post_body")
     .trim()
     .isLength({ min: 1 })
     .escape()
+    .unescape("'", "&quot", '/')
     .withMessage("Message is required"),
   // Process request after validation and sanitization
   (req, res, next) => {
