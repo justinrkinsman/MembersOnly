@@ -52,7 +52,7 @@ app.engine('handlebars', engines.handlebars);
 
 passport.use(
   new LocalStrategy((username, password, done) => {
-    User.findOne({ username: username}, (err, user) => {
+    User.findOne({ username: username.toLowerCase()}, (err, user) => {
       if (err) {
         return done(err)
       }
@@ -181,7 +181,7 @@ app.post("/signup_form", [
       const user = new User({
           first_name: req.body.first_name,
           last_name: req.body.last_name,
-          username: req.body.username,
+          username: req.body.username.toLowerCase(),
           password: req.body.password,
       })
 
@@ -196,7 +196,7 @@ app.post("/signup_form", [
       } else {
           // Data from form is valid.
           // Check if user with same username exists
-          User.findOne({ username: req.body.username }).exec((err, found_username) => {
+          User.findOne({ username: req.body.username.toLowerCase() }).exec((err, found_username) => {
               if (err) {
                   return next(err)
               }
@@ -208,7 +208,7 @@ app.post("/signup_form", [
                       const user = new User({
                           first_name: req.body.first_name,
                           last_name: req.body.last_name,
-                          username: req.body.username,
+                          username: req.body.username.toLowerCase(),
                           password: hashedPassword
                       }).save(err => {
                           if (err) {

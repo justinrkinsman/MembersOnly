@@ -7,9 +7,9 @@ a {
   color: #00B7FF;
 }
 
-input[name="username"] {
+/*input[name="username"] {
   text-transform: lowercase;
-}
+}*/
 
 .form-group {
   display: flex;
