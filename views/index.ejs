@@ -17,9 +17,9 @@
         <% for(let i=0; i < posts.length; i++) { %>
           <tr>
             <td>
-              <%= posts[i].title %>
+              <h3><%= posts[i].title %></h3>
             </td>
-            <td>
+            <td class="post-body">
               <%= posts[i].post_body %>
             </td>
           </tr>
@@ -40,9 +40,9 @@
             <tr>
           <% } %>
             <td>
-              <%= posts[i].title %>
+              <h3><%= posts[i].title %></h3>
             </td>
-            <td>
+            <td class="post-body">
               <%= posts[i].post_body %>
             </td>
             <td>
@@ -75,9 +75,9 @@
               <tr>
             <% } %>
                 <td>
-                  <%= posts[i].title %>
+                  <h3><%= posts[i].title %></h3>
                 </td>
-                <td>
+                <td class="post-body">
                   <%= posts[i].post_body %>
                 </td>
                 <td>
