@@ -383,6 +383,17 @@ app.post("/delete-post/:id", (req, res, next) => {
     })
 })
 
+app.get('/edit-post/:id', (req, res, next) => {
+  Post.findById(req.params.id)
+    .populate("title post_body timestamp user")
+    .exec(function (err, post) {
+      if (err) {
+        return next(err)
+      }
+      res.render("edit-post.ejs", {title: "Edit Post", post: post})
+    })
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
