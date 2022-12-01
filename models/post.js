@@ -19,4 +19,8 @@ PostSchema.virtual("delete_post_url").get(function () {
     return "/delete-post/" + this._id
 })
 
+PostSchema.virtual("edit_post_url").get(function () {
+    return "/edit-post/" + this._id
+})
+
 module.exports = mongoose.model("Post", PostSchema)
