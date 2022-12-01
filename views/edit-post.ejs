@@ -9,11 +9,9 @@
 
 <body>
     <h1>Edit Post</h1>
-    <h3><%= post.title %> </h3>
-    <p><%= post.post_body %> </p>
-    <p><%= post.formatted_timestamp %></p>
-    <p><%= post.user.username %> </p>
-    <form method="POST" action="<%= post.edit_post_url %>">
+    <form action="<%= post.edit_post_url %>" method="POST" class="edit-form">
+        <input type="text" maxlength="100" name="edit-title" value="<%= post.title %>"></input>
+        <textarea type="text" name="edit-post"><%= post.post_body %></textarea>
         <input type="submit" value="Submit"></a>
     </form>
     <form>

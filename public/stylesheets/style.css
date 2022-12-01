@@ -20,6 +20,19 @@ a {
   padding: 10px;
 }
 
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+textarea[name="edit-post"] {
+  height: 100px;
+  width: 500px;
+}
+
 body {
   background-color: grey;
   color: wheat
