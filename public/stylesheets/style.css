@@ -34,12 +34,12 @@ textarea[name="post_body"] {
 }
 
 body {
-  background-color: grey;
-  color: wheat
+  background-color: lightgray;
+  color: black
 }
 
 a {
-  color: greenyellow
+  color: blue
 }
 
 input, textarea {
@@ -65,6 +65,7 @@ tr {
 
 .your-post {
   background-color: blue;
+  color: grey
 }
 
 .post-body {
