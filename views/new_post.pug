@@ -6,7 +6,7 @@ block content
     form(action='' method='POST')
         div.form-group 
             label(for='title') Post Title: 
-            input#title.form-control(type='text', placeholder='My First Post' name='title')
+            input#title.form-control(type='text', placeholder='My First Post' maxlength=100 name='title' )
         div.form-group
             label(for='post_body') Message: 
             textarea#post_body.form-control(type='text', placeholder='Your message text here' name='post_body')
