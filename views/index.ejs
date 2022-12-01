@@ -19,8 +19,6 @@
             <td>
               <%= posts[i].title %>
             </td>
-          </tr>
-          <tr>
             <td>
               <%= posts[i].post_body %>
             </td>
@@ -40,20 +38,17 @@
             <td>
               <%= posts[i].title %>
             </td>
-          </tr>
-          <tr>
             <td>
               <%= posts[i].post_body %>
             </td>
-          </tr>
-          <tr>
             <td>
               <%= posts[i].formatted_timestamp %>
             </td>
-          </tr>
-          <tr>
             <td>
               <%= posts[i].user.username %>
+            </td>
+            <td>
+              <a href="<%= posts[i].edit_post_url %>">Edit Post</a>
             </td>
           </tr>
         <% } %>
@@ -81,6 +76,7 @@
                 <%= posts[i].user.username %>
               </td>
               <td>
+                <a href="<%= posts[i].edit_post_url %>"></a>Edit Post</a>
                 <a href="<%= posts[i].delete_post_url %>">Delete Post</a>
               </td>
             </tr>

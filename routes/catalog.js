@@ -25,4 +25,8 @@ router.get('/admin-signup', (req, res, next) => {
     res.render('admin-signup.pug')
 })
 
+router.get('/edit-post', (req, res, next) => {
+    res.render('edit-post.pug')
+})
+
 module.exports = router;

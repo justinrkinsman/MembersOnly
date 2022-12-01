@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+    <title></title>
+</head>
+
+<body>
+    <h1>Edit Post</h1>
+    <h3><%= post.title %> </h3>
+    <p><%= post.post_body %> </p>
+    <p><%= post.formatted_timestamp %></p>
+    <p><%= post.user.username %> </p>
+    <form method="POST" action="<%= post.edit_post_url %>">
+        <input type="submit" value="Submit"></a>
+    </form>
+    <form>
+        <a href="/">Cancel</a>
+    </form>
