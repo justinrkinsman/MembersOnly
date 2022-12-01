@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bcrypt = require('bcryptjs')
 const { body, validationResult, check } = require('express-validator')
+const async = require("async")
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -384,15 +385,61 @@ app.post("/delete-post/:id", (req, res, next) => {
 })
 
 app.get('/edit-post/:id', (req, res, next) => {
-  Post.findById(req.params.id)
-    .populate("title post_body timestamp user")
-    .exec(function (err, post) {
-      if (err) {
-        return next(err)
-      }
-      res.render("edit-post.ejs", {title: "Edit Post", post: post})
+  async.parallel(
+    {
+      post: function (callback) {
+        Post.findById(req.params.id).exec(callback)
+      },
+      user: function (callback) {
+        User.find(callback)
+      },
+    },
+    function(err, results) {
+      if (err) return next(err)
+
+    res.render("edit-post.ejs", {
+      title: "Edit Post",
+      post: results.post,
     })
+    }
+  )
 })
+
+app.post("/edit-post/:id", [
+  body("title")
+    .trim()
+    .isLength({ min: 1, max: 100 })
+    .escape()
+    .unescape("'", "&quot", '/')
+    .withMessage("Title is required"),
+  body("post_body")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .unescape("'", "&quot", '/')
+    .withMessage("Message is required"),
+
+  (req, res, next) => {
+    const errors = validationResult(req)
+
+    const post = new Post({
+      title: req.body.title,
+      post_body: req.body.post_body,
+      _id: req.params.id,
+    })
+
+    if (errors.isEmpty()) {
+      // Successful, so render
+      Post.findByIdAndUpdate(req.params.id, post, {}, function(err, thePost) {
+        if (err) {
+          return next(err)
+        }
+        res.redirect('/')
+      })
+      
+    }
+  }
+])
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

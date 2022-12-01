@@ -28,7 +28,7 @@ a {
   gap: 10px;
 }
 
-textarea[name="edit-post"] {
+textarea[name="post_body"] {
   height: 100px;
   width: 500px;
 }
