@@ -423,7 +423,7 @@ app.post("/edit-post/:id", [
     const errors = validationResult(req)
 
     const post = new Post({
-      title: req.body.title,
+      title: req.body.title + " (edited)",
       post_body: req.body.post_body,
       _id: req.params.id,
     })

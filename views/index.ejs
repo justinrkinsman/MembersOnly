@@ -47,9 +47,11 @@
             <td>
               <%= posts[i].user.username %>
             </td>
-            <td>
-              <a href="<%= posts[i].edit_post_url %>">Edit Post</a>
-            </td>
+            <% if (user.username === posts[i].user.username) {%>
+              <td>
+                <a href="<%= posts[i].edit_post_url %>">Edit Post</a>
+              </td>
+            <% } %>
           </tr>
         <% } %>
       </table>

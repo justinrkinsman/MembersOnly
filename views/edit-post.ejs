@@ -10,12 +10,10 @@
 <body>
     <h1>Edit Post</h1>
     <form action="<%= post.edit_post_url %>" method="POST" class="edit-form">
-        <input type="text" maxlength="100" name="title" value="<%= post.title %>"></input>
+        <input type="text" maxlength="90" name="title" value="<%= post.title %>"></input>
         <textarea type="text" name="post_body"><%= post.post_body %></textarea>
         <input type="submit" value="Submit"></a>
     </form>
-    <p><%= post.formatted_timestamp %></p>
-    <p><%= post.user %></p>
     <form>
         <a href="/">Cancel</a>
     </form>
