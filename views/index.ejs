@@ -48,9 +48,23 @@
               <%= posts[i].user.username %>
             </td>
             <% if (user.username === posts[i].user.username) {%>
-              <td>
-                <a href="<%= posts[i].edit_post_url %>">Edit Post</a>
-              </td>
+              <tr class="your-post">
+                <td>
+                  <%= posts[i].title %>
+                </td>
+                <td>
+                  <%= posts[i].post_body %>
+                </td>
+                <td>
+                  <%= posts[i].formatted_timestamp %>
+                </td>
+                <td>
+                  <%= posts[i].user.username %>
+                </td>
+                <td>
+                  <a href="<%= posts[i].edit_post_url %>">Edit Post</a>
+                </td>
+              </tr>
             <% } %>
           </tr>
         <% } %>
@@ -64,6 +78,26 @@
       <a href="/logout">LOG OUT</a>
         <table>
           <% for(let i=0; i < posts.length; i++) { %>
+            <% if (user.username === posts[i].user.username) {%>
+              <tr class="your-post">
+                <td>
+                  <%= posts[i].title %>
+                </td>
+                <td>
+                  <%= posts[i].post_body %>
+                </td>
+                <td>
+                  <%= posts[i].formatted_timestamp %>
+                </td>
+                <td>
+                  <%= posts[i].user.username %>
+                </td>
+                <td>
+                  <a href="<%= posts[i].edit_post_url %>">Edit Post</a>
+                  <a href="<%= posts[i].delete_post_url %>">Delete Post</a>
+                </td>
+              </tr>
+            <% } %>
             <tr>
               <td>
                 <%= posts[i].title %>
