@@ -16,6 +16,8 @@ block content
             label(for='confirm_password') Confirm Password: 
             input#confirm_password.form-control(type='password', name='confirm_password') 
         button.btn.btn-primary(type='submit') Submit 
+        a(href="/")
+                p Cancel
     if errors 
         ul 
             for error in errors 

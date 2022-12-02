@@ -10,7 +10,9 @@ block content
         div.form-group
             label(for='post_body') Message: 
             textarea#post_body.form-control(type='text', placeholder='Your message text here' name='post_body')
-        button.btn.btn-primary(type='submit') Submit 
+        button.btn.btn-primary(type='submit') Submit
+        a(href="/")
+                p Cancel
     if errors 
         ul 
             for error in errors 
