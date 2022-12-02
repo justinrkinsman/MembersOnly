@@ -1,0 +1,16 @@
+extends layout 
+
+block content 
+
+    h1 please log in
+    h2 Incorrect Username or Password
+    form(action='/login' method="POST")
+        div.failedLogin
+            label(for='username') Username: 
+            input#name.form-control(type='text' placeholder='username' name='username')
+            label(for='password') Password: 
+            input#password.form-control(type='password' name='password')
+            button Log in
+    h2 Not signed up:
+    a(href='/singup_form')
+      p Sign up here

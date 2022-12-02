@@ -25,4 +25,8 @@ router.get('/admin-signup', (req, res, next) => {
     res.render('admin-signup.pug', { title: 'Admin Signup' })
 })
 
+router.get('/failed-login', (req, res, next) => {
+    res.render('failed-login.pug', { title: "Login"})
+})
+
 module.exports = router;

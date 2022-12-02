@@ -133,7 +133,7 @@ app.post(
   "/login",
   passport.authenticate("local", {
     successRedirect: '/',
-    failureRedirect: '/'
+    failureRedirect: '/failed-login'
   })
 )
 
