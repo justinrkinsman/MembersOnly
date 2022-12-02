@@ -14,19 +14,15 @@ router.get('/signup_form', (req, res, next) => {
 })
 
 router.get('/new-post', (req, res, next) => {
-    res.render('new_post.pug')
+    res.render('new_post.pug', { title: 'Create Post' })
 })
 
 router.get('/secret-signup', (req, res, next) => {
-    res.render('secret-signup.pug')
+    res.render('secret-signup.pug', { title: 'Member Signup' })
 })
 
 router.get('/admin-signup', (req, res, next) => {
-    res.render('admin-signup.pug')
-})
-
-router.get('/edit-post', (req, res, next) => {
-    res.render('edit-post.pug')
+    res.render('admin-signup.pug', { title: 'Admin Signup' })
 })
 
 module.exports = router;
