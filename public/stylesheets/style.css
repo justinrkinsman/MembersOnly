@@ -61,6 +61,7 @@ tr {
   border: 1px solid black;
   margin-top: 15px;
   padding: 5px;
+  background-color: slategray;
   transition: transform .2s;
 }
 
