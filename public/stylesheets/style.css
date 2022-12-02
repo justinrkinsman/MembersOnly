@@ -3,10 +3,6 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
-}
-
 /*input[name="username"] {
   text-transform: lowercase;
 }*/
@@ -64,11 +60,5 @@ tr {
 }
 
 .your-post {
-  background-color: blue;
-  color: grey
-}
-
-.post-body {
-  background-color: white;
-  color: black
+  background-color: skyblue;
 }
