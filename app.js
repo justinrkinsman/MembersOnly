@@ -38,6 +38,7 @@ const db = mongoose.connection
 db.on("error", console.error.bind(console, "MongoDB connection error:"))
 
 // view engine setup
+app.engine('pug', require('pug')._express)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 app.set('view engine', 'pug');
