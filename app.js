@@ -1,8 +1,9 @@
-require('dotenv').config()
+const dotenv = require('dotenv')
+dotenv.config()
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-const session = require("cookie-session")
+const session = require("express-session")
 const passport = require("passport")
 const LocalStrategy = require('passport-local').Strategy
 const cookieParser = require('cookie-parser');
