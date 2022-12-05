@@ -33,7 +33,7 @@ app.use('/users', usersRouter);
 const mongoose = require("mongoose")
 const dev_db_url = process.env.MONGO_URL
 const mongoDB = dev_db_url
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoDB || MONGO_DB, { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
 db.on("error", console.error.bind(console, "MongoDB connection error:"))
 
