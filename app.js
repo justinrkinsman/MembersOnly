@@ -87,12 +87,10 @@ passport.deserializeUser(function(id, done) {
 
 app.use(session({ 
   secret: "superSecretPassword",
-  cookie: {
-    secure: false,
-    httpOnly: true,
-    sameSite: true,
-    maxAge: 24 * 60 * 60 * 1000
-  },
+  secure: false,
+  httpOnly: true,
+  sameSite: true,
+  maxAge: 24 * 60 * 60 * 1000,
   resave: false, 
   saveUninitialized: true, }))
 app.use(passport.initialize())
