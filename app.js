@@ -137,12 +137,12 @@ app.post(
 )
 
 app.get("/logout", (req, res, next) => {
-  req.logout(function (err) {
-    if (err) {
-      return next(err)
-    }
-    res.redirect('/')
+  req.logout()
+  res.status(200).clearCookie('connect.sid', {
+    path: '/'
   })
+  req.session = null
+  res.redirect('/')
 })
 
 app.post("/signup_form", [
